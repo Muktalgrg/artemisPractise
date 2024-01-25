@@ -1,13 +1,10 @@
 package com.example.artemisPractise;
 
-import com.example.artemisPractise.config.SimpleEmailNotificationAdapterImpl;
-import com.example.artemisPractise.listener.MessageConsumer;
-import com.example.artemisPractise.model.EmailMessage;
-import com.example.artemisPractise.producer.MessageProducer;
-import com.example.artemisPractise.repository.BeneficiaryRepository;
-import com.example.artemisPractise.repository.BusinessUserRepository;
-import com.example.artemisPractise.repository.FloatDetailsRepository;
-import com.example.artemisPractise.repository.MerchantRepository;
+import com.example.artemisPractise.user.service.impl.SimpleEmailNotificationAdapterImpl;
+import com.example.artemisPractise.user.repository.BeneficiaryRepository;
+import com.example.artemisPractise.user.repository.BusinessUserRepository;
+import com.example.artemisPractise.user.repository.FloatDetailsRepository;
+import com.example.artemisPractise.user.repository.MerchantRepository;
 import com.example.artemisPractise.user.entity.BusinessUser;
 import com.example.artemisPractise.user.entity.FloatDetails;
 import com.example.artemisPractise.user.entity.Merchant;
@@ -16,16 +13,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.support.AbstractApplicationContext;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledThreadPoolExecutor;
-import java.util.stream.IntStream;
 
 @SpringBootApplication
 public class ArtemisPractiseApplication implements CommandLineRunner {
@@ -155,60 +142,70 @@ public class ArtemisPractiseApplication implements CommandLineRunner {
 
 		BusinessUser businessUser1 = new BusinessUser();
 		businessUser1.setName("Mukta Gurung");
+		businessUser1.setEmail("muktalgrg@gmail.com");
 		businessUser1.setMerchant(merchant1);
 		businessUser1.setFloatDetails(floatDetails1);
 		businessUserRepository.save(businessUser1);
 
 		BusinessUser businessUser2 = new BusinessUser();
 		businessUser2.setName("Ryan giggs");
+		businessUser2.setEmail("muktalgrg@gmail.com");
 		businessUser2.setMerchant(merchant1);
 		businessUser2.setFloatDetails(floatDetails2);
 		businessUserRepository.save(businessUser2);
 
 		BusinessUser businessUser3 = new BusinessUser();
 		businessUser3.setName("Paul Scholes");
+		businessUser3.setEmail("muktalgrg@gmail.com");
 		businessUser3.setMerchant(merchant1);
 		businessUser3.setFloatDetails(floatDetails3);
 		businessUserRepository.save(businessUser3);
 
 		BusinessUser businessUser4 = new BusinessUser();
 		businessUser4.setName("Van der sar");
+		businessUser4.setEmail("muktalgrg@gmail.com");
 		businessUser4.setMerchant(merchant1);
 		businessUser4.setFloatDetails(floatDetails4);
 		businessUserRepository.save(businessUser4);
 
 		BusinessUser businessUser5 = new BusinessUser();
 		businessUser5.setName("Cristiano Ronaldo");
+		businessUser5.setEmail("muktalgrg@gmail.com");
 		businessUser5.setMerchant(merchant1);
 		businessUser5.setFloatDetails(floatDetails5);
 		businessUserRepository.save(businessUser5);
 
 		BusinessUser businessUser6 = new BusinessUser();
 		businessUser6.setName("Roborto carlos");
+		businessUser6.setEmail("muktalgrg@gmail.com");
 		businessUser6.setMerchant(merchant2);
 		businessUser6.setFloatDetails(floatDetails6);
 		businessUserRepository.save(businessUser6);
 
 		BusinessUser businessUser7 = new BusinessUser();
 		businessUser7.setName("Luis Figo");
+		businessUser7.setEmail("muktalgrg@gmail.com");
 		businessUser7.setMerchant(merchant2);
 		businessUser7.setFloatDetails(floatDetails7);
 		businessUserRepository.save(businessUser7);
 
 		BusinessUser businessUser8 = new BusinessUser();
 		businessUser8.setName("Iker Cassilas");
+		businessUser8.setEmail("muktalgrg@gmail.com");
 		businessUser8.setMerchant(merchant2);
 		businessUser8.setFloatDetails(floatDetails8);
 		businessUserRepository.save(businessUser8);
 
 		BusinessUser businessUser9 = new BusinessUser();
 		businessUser9.setName("Raul");
+		businessUser9.setEmail("muktalgrg@gmail.com");
 		businessUser9.setMerchant(merchant2);
 		businessUser9.setFloatDetails(floatDetails9);
 		businessUserRepository.save(businessUser9);
 
 		BusinessUser businessUser10 = new BusinessUser();
 		businessUser10.setName("Toni Kroos");
+		businessUser10.setEmail("muktalgrg@gmail.com");
 		businessUser10.setMerchant(merchant2);
 		businessUser10.setFloatDetails(floatDetails10);
 		businessUserRepository.save(businessUser10);

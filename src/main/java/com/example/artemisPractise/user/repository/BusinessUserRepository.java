@@ -1,4 +1,4 @@
-package com.example.artemisPractise.repository;
+package com.example.artemisPractise.user.repository;
 
 import com.example.artemisPractise.user.entity.BusinessUser;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -38,6 +38,17 @@ dependencies {
 	// for mail service using aws ses smtp
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-mail', version: '2.7.7'
 
+	// for email page
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+
+	// https://mvnrepository.com/artifact/commons-io/commons-io
+	implementation 'commons-io:commons-io:2.15.1'
+
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	implementation 'org.springframework.data:spring-data-rest-hal-explorer'
+
+
+
 
 //	// https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk
 //	implementation 'com.amazonaws:aws-java-sdk:1.12.637'

@@ -1,4 +1,4 @@
-package com.example.artemisPractise.config;
+package com.example.artemisPractise.user.service;
 
 import java.util.List;
 

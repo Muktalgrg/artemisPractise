@@ -1,9 +1,11 @@
 package com.example.artemisPractise.user.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 
 @Getter
@@ -12,13 +14,15 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class FloatDetails {
+public class FloatDetails implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private Double floatBalance;
 
+
+    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "merchant_id")
 //    @Column(nullable = false,unique = true)
@@ -28,6 +32,5 @@ public class FloatDetails {
     @JoinColumn(name = "businessUser_id")
 //    @Column(nullable = false,unique = true)
     private BusinessUser businessUser;
-
 
 }

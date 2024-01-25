@@ -1,21 +1,22 @@
 package com.example.artemisPractise.user.entity;
 
 
-import com.example.artemisPractise.repository.FloatDetailsRepository;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 @Getter
 @Setter
-@Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @Table(name = "merchantAccount")
-public class Merchant {
+public class Merchant implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,7 +29,10 @@ public class Merchant {
     private FloatDetails floatDetails;
 
     @OneToMany(mappedBy = "merchant", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<BusinessUser> businessUserList;
+
+    private String email;
 
 
 
@@ -47,8 +51,5 @@ public class Merchant {
         this.floatDetails = floatDetails;
         floatDetails.setMerchant(this);
     }
-
-
-
 
 }

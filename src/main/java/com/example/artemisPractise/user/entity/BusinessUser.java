@@ -1,19 +1,19 @@
 package com.example.artemisPractise.user.entity;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
-public class BusinessUser {
+@AllArgsConstructor
+@NoArgsConstructor
+public class BusinessUser implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -23,19 +23,17 @@ public class BusinessUser {
 
     @ManyToOne
     @JoinColumn(name = "merchant_id")
+    @JsonBackReference
     private Merchant merchant;
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "merchant")
     private FloatDetails floatDetails;
 
+    private String email;
+
     public void setFloatDetails(FloatDetails floatDetails){
         this.floatDetails = floatDetails;
         floatDetails.setBusinessUser(this);
     }
-
-
-
-
-
 
 }
