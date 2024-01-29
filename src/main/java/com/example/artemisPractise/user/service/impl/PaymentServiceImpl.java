@@ -1,12 +1,9 @@
 package com.example.artemisPractise.user.service.impl;
 
+import com.example.artemisPractise.user.entity.*;
 import com.example.artemisPractise.user.producer.MessageProducer;
 import com.example.artemisPractise.user.repository.BusinessUserRepository;
 import com.example.artemisPractise.user.repository.FloatDetailsRepository;
-import com.example.artemisPractise.user.entity.BusinessUser;
-import com.example.artemisPractise.user.entity.FloatDetails;
-import com.example.artemisPractise.user.entity.Merchant;
-import com.example.artemisPractise.user.entity.PaymentDetails;
 import com.example.artemisPractise.user.exception.CustomException;
 import com.example.artemisPractise.user.service.PaymentService;
 import org.slf4j.Logger;
@@ -42,9 +39,6 @@ public class PaymentServiceImpl implements PaymentService {
 
             Merchant associatedMerchant = businessUser.get().getMerchant();
 
-            System.out.println("Business user: " + businessUser);
-            System.out.println("associated merchant: " + associatedMerchant);
-
 
             Optional<FloatDetails> floatDetailsForBusinessUser = floatDetailsRepository.findByBusinessUserId(businessUser.get().getId());
 
@@ -65,14 +59,19 @@ public class PaymentServiceImpl implements PaymentService {
             floatAmountForMerchant = floatAmountForMerchant.subtract(BigDecimal.valueOf(paymentDetails.getTxnAmount()));
             floatDetailsForMerchant.get().setFloatBalance(floatAmountForMerchant.doubleValue());
 
-            logger.info("Business user float details: " + floatDetailsForBusinessUser);
-            logger.info("Merchant user float details: " + floatDetailsForMerchant);
 
             floatDetailsRepository.save(floatDetailsForBusinessUser.get());
             floatDetailsRepository.save(floatDetailsForMerchant.get());
 
             // push to queue
-            messageProducer.sendJsonMessage(businessUser.get());
+//            messageProducer.sendJsonMessage(businessUser.get());
+
+
+        NotificationDTO notificationDTO = NotificationDTOMapper.INSTANCE.businessUserToNotificationDTO(businessUser.get());
+            messageProducer.sendJsonMessage(notificationDTO);
+
+            BusinessUserDTO businessUserDTO = BusinessUserDTOMapper.INSTANCE.businessUserToBusinessUserDTO(businessUser.get());
+            messageProducer.sendJsonMessage(businessUserDTO);
         }
 
 
