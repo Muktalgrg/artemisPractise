@@ -15,7 +15,6 @@ public class MessageConsumer {
     private final static Logger logger = LoggerFactory.getLogger(MessageConsumer.class);
 
     private final SimpleEmailNotificationAdapterImpl simpleEmailNotificationAdapterImpl;
-    private int count = 0;
 
     public MessageConsumer(SimpleEmailNotificationAdapterImpl simpleEmailNotificationAdapterImpl) {
         this.simpleEmailNotificationAdapterImpl = simpleEmailNotificationAdapterImpl;
@@ -23,19 +22,6 @@ public class MessageConsumer {
 
 //    @JmsListener(destination = JmsConfig.MY_QUEUE)
     public void receiveJsonMessage(BusinessUser businessUser){
-
-        // send email to respective logic!
-
-        logger.warn(">>>> inside message consumer.\nMessage from the queue: "+businessUser);
-
-        logger.info("---------------------------------------");
-        logger.info("---------------------------------------");
-        count++;
-        logger.info("count: "+count);
-        logger.info("---------------------------------------");
-        logger.info("---------------------------------------");
-
-        String subject = "Payment";
         String content = this.simpleEmailNotificationAdapterImpl.getContent(businessUser.getName());
 
         try {
