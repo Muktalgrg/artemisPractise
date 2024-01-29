@@ -2,18 +2,14 @@ package com.example.artemisPractise.user.config;
 
 
 //import com.example.artemisPractise.user.listener.MessageConsumer;
-import com.example.artemisPractise.user.entity.BusinessUser;
 import com.example.artemisPractise.user.entity.BusinessUserDTO;
 import com.example.artemisPractise.user.entity.NotificationDTO;
-import com.example.artemisPractise.user.entity.PaymentDetails;
 import org.apache.activemq.artemis.jms.client.ActiveMQConnectionFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jms.annotation.EnableJms;
 import org.springframework.jms.config.DefaultJmsListenerContainerFactory;
-import org.springframework.jms.config.SimpleJmsListenerEndpoint;
-import org.springframework.jms.core.JmsTemplate;
-import org.springframework.jms.listener.DefaultMessageListenerContainer;
+import org.springframework.jms.connection.CachingConnectionFactory;
 import org.springframework.jms.support.converter.MappingJackson2MessageConverter;
 import org.springframework.jms.support.converter.MessageConverter;
 import org.springframework.jms.support.converter.MessageType;
@@ -26,17 +22,23 @@ import java.util.Map;
 
 @Configuration
 @EnableJms
-public class JmsConfig {
+public class JmsConfig1 {
     public static final String BPS_NOTIFICATION = "bps-notification";
-//    public static final String MY_TEST_QUEUE = "test-queue";
-//
-//    public static final String BPS_NOTIFICATION_DESTINATION = "bps-notification-destination";
-//    public static final String MY_TEST_QUEUE_DESTINATION = "my-queue-destination";
 
 
     @Bean
     public ActiveMQConnectionFactory activeMQConnectionFactory(){
-        return new ActiveMQConnectionFactory();
+        ActiveMQConnectionFactory activeMQConnectionFactory = new ActiveMQConnectionFactory();
+        return activeMQConnectionFactory;
+    }
+
+    @Bean
+    public CachingConnectionFactory cachingConnectionFactory() {
+        CachingConnectionFactory cachingConnectionFactory =
+                new CachingConnectionFactory(activeMQConnectionFactory());
+        cachingConnectionFactory.setSessionCacheSize(10);
+
+        return cachingConnectionFactory;
     }
 
     @Bean
@@ -64,7 +66,7 @@ public class JmsConfig {
 //    }
 
 
-    /*
+
     @Bean
     public MessageConverter messageConverter(){
         MappingJackson2MessageConverter converter = new MappingJackson2MessageConverter();
@@ -73,17 +75,15 @@ public class JmsConfig {
         Map<String, Class<?>> typeIdMappings = new HashMap<String, Class<?>>();
         typeIdMappings.put("notificationDTO", NotificationDTO.class);
         typeIdMappings.put("businessUserDTO", BusinessUserDTO.class);
-//        typeIdMappings.put("businessUser", BusinessUser.class);
-//        typeIdMappings.put("paymentDetails", PaymentDetails.class);
         converter.setTypeIdMappings(typeIdMappings);
         return converter;
     }
-    */
 
-    @Bean
-    public SimpleMessageConverter messageConverter(){
-        return new SimpleMessageConverter();
-    }
+
+//    @Bean
+//    public SimpleMessageConverter messageConverter(){
+//        return new SimpleMessageConverter();
+//    }
 
     /*
 //    @Bean

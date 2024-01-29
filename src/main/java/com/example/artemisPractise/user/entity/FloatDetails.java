@@ -14,7 +14,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class FloatDetails implements Serializable {
+public class FloatDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -22,7 +22,7 @@ public class FloatDetails implements Serializable {
     private Double floatBalance;
 
 
-    @JsonIgnore
+//    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "merchant_id")
 //    @Column(nullable = false,unique = true)

@@ -13,7 +13,7 @@ import java.io.Serializable;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class BusinessUser implements Serializable{
+public class BusinessUser{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

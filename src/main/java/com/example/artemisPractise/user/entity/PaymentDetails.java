@@ -6,7 +6,7 @@ import lombok.ToString;
 import java.io.Serializable;
 
 @Data
-public class PaymentDetails implements Serializable {
+public class PaymentDetails {
 
     private Long id;
 

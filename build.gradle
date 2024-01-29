@@ -47,6 +47,10 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'org.springframework.data:spring-data-rest-hal-explorer'
 
+	// MapStruct dependencies
+	implementation 'org.mapstruct:mapstruct:1.4.2.Final' // Use the latest version
+	annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.2.Final'
+
 
 
 
