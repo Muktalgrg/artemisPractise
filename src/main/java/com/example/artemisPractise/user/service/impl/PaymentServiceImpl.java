@@ -70,8 +70,8 @@ public class PaymentServiceImpl implements PaymentService {
         NotificationDTO notificationDTO = NotificationDTOMapper.INSTANCE.businessUserToNotificationDTO(businessUser.get());
             messageProducer.sendJsonMessage(notificationDTO);
 
-            BusinessUserDTO businessUserDTO = BusinessUserDTOMapper.INSTANCE.businessUserToBusinessUserDTO(businessUser.get());
-            messageProducer.sendJsonMessage(businessUserDTO);
+//            BusinessUserDTO businessUserDTO = BusinessUserDTOMapper.INSTANCE.businessUserToBusinessUserDTO(businessUser.get());
+//            messageProducer.sendJsonMessage(businessUserDTO);
         }
 
 

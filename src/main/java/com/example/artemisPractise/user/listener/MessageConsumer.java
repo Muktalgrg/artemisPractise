@@ -34,17 +34,9 @@ public class MessageConsumer {
 
 
 
-//    @JmsListener(destination = JmsConfig.BPS_NOTIFICATION, containerFactory = "jmsListenerContainerFactory")
-    public  void receiveJsonMessage(Message receivedMessage){
-        System.out.println();
-        System.out.println(receivedMessage);
-        System.out.println(receivedMessage instanceof BusinessUserDTO);
-        System.out.println(receivedMessage instanceof NotificationDTO);
-
-        System.out.println((Object)receivedMessage instanceof BusinessUserDTO);
-        System.out.println((Object)receivedMessage instanceof NotificationDTO);
-
-
+    @JmsListener(destination = JmsConfig.BPS_NOTIFICATION)
+    public  void receiveMessageForEmailService(NotificationDTO notificationDTO){
+        System.out.println("inside consumer 1: "+notificationDTO);
 
 
         try {
@@ -55,6 +47,21 @@ public class MessageConsumer {
             throw new RuntimeException(e);
         }
 
+    }
+
+//    @JmsListener(destination = JmsConfig.BPS_NOTIFICATION)
+    public void receiveMessageForMobileService(NotificationDTO notificationDTO){
+        System.out.println("inside consumer 2: "+notificationDTO);
+    }
+
+//    @JmsListener(destination = JmsConfig.BPS_NOTIFICATION)
+    public void receiveMessageForMobileService1(NotificationDTO notificationDTO){
+        System.out.println("inside consumer 3: "+notificationDTO);
+    }
+
+//    @JmsListener(destination = JmsConfig.BPS_NOTIFICATION)
+    public void receiveMessageForMobileService2(NotificationDTO notificationDTO){
+        System.out.println("inside consumer 4: "+notificationDTO);
     }
 
 //    @JmsListener(destination = "DLQ")

@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.jms.annotation.EnableJms;
 import org.springframework.jms.config.DefaultJmsListenerContainerFactory;
 import org.springframework.jms.config.SimpleJmsListenerEndpoint;
+import org.springframework.jms.connection.CachingConnectionFactory;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.listener.DefaultMessageListenerContainer;
 import org.springframework.jms.support.converter.MappingJackson2MessageConverter;
@@ -21,18 +22,12 @@ import org.springframework.jms.support.converter.SimpleMessageConverter;
 
 import java.util.HashMap;
 import java.util.Map;
-//import com.example.artemisPractise.user.producer.MessageProducer;
 
 
 @Configuration
 @EnableJms
 public class JmsConfig {
     public static final String BPS_NOTIFICATION = "bps-notification";
-//    public static final String MY_TEST_QUEUE = "test-queue";
-//
-//    public static final String BPS_NOTIFICATION_DESTINATION = "bps-notification-destination";
-//    public static final String MY_TEST_QUEUE_DESTINATION = "my-queue-destination";
-
 
     @Bean
     public ActiveMQConnectionFactory activeMQConnectionFactory(){
@@ -40,8 +35,18 @@ public class JmsConfig {
     }
 
     @Bean
+    public CachingConnectionFactory cachingConnectionFactory() {
+        CachingConnectionFactory cachingConnectionFactory =
+                new CachingConnectionFactory(activeMQConnectionFactory());
+        cachingConnectionFactory.setSessionCacheSize(10);
+
+        return cachingConnectionFactory;
+    }
+
+    @Bean
     public BpsJmsTemplate bpsJmsTemplate(){
         BpsJmsTemplate bpsJmsTemplate = new BpsJmsTemplate(activeMQConnectionFactory());
+        bpsJmsTemplate.setPubSubDomain(true); // topic will be used instead of queue
         bpsJmsTemplate.setMessageConverter(messageConverter());
         return bpsJmsTemplate;
     }
@@ -50,6 +55,7 @@ public class JmsConfig {
         DefaultJmsListenerContainerFactory factory = new DefaultJmsListenerContainerFactory();
         factory.setConnectionFactory(activeMQConnectionFactory());
         factory.setMessageConverter(messageConverter());
+        factory.setPubSubDomain(true); // topic will be used
         return factory;
     }
 //    @Bean
@@ -64,7 +70,7 @@ public class JmsConfig {
 //    }
 
 
-    /*
+
     @Bean
     public MessageConverter messageConverter(){
         MappingJackson2MessageConverter converter = new MappingJackson2MessageConverter();
@@ -73,17 +79,15 @@ public class JmsConfig {
         Map<String, Class<?>> typeIdMappings = new HashMap<String, Class<?>>();
         typeIdMappings.put("notificationDTO", NotificationDTO.class);
         typeIdMappings.put("businessUserDTO", BusinessUserDTO.class);
-//        typeIdMappings.put("businessUser", BusinessUser.class);
-//        typeIdMappings.put("paymentDetails", PaymentDetails.class);
         converter.setTypeIdMappings(typeIdMappings);
         return converter;
     }
-    */
 
-    @Bean
-    public SimpleMessageConverter messageConverter(){
-        return new SimpleMessageConverter();
-    }
+
+//    @Bean
+//    public SimpleMessageConverter messageConverter(){
+//        return new SimpleMessageConverter();
+//    }
 
     /*
 //    @Bean
