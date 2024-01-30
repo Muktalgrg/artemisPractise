@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.jms.annotation.EnableJms;
 import org.springframework.jms.config.DefaultJmsListenerContainerFactory;
 import org.springframework.jms.config.SimpleJmsListenerEndpoint;
+import org.springframework.jms.connection.CachingConnectionFactory;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.listener.DefaultMessageListenerContainer;
 import org.springframework.jms.support.converter.MappingJackson2MessageConverter;
@@ -40,6 +41,15 @@ public class JmsConfig {
     }
 
     @Bean
+    public CachingConnectionFactory cachingConnectionFactory() {
+        CachingConnectionFactory cachingConnectionFactory =
+                new CachingConnectionFactory(activeMQConnectionFactory());
+        cachingConnectionFactory.setSessionCacheSize(10);
+
+        return cachingConnectionFactory;
+    }
+
+    @Bean
     public BpsJmsTemplate bpsJmsTemplate(){
         BpsJmsTemplate bpsJmsTemplate = new BpsJmsTemplate(activeMQConnectionFactory());
         bpsJmsTemplate.setMessageConverter(messageConverter());
@@ -64,7 +74,7 @@ public class JmsConfig {
 //    }
 
 
-    /*
+
     @Bean
     public MessageConverter messageConverter(){
         MappingJackson2MessageConverter converter = new MappingJackson2MessageConverter();
@@ -78,12 +88,12 @@ public class JmsConfig {
         converter.setTypeIdMappings(typeIdMappings);
         return converter;
     }
-    */
 
-    @Bean
-    public SimpleMessageConverter messageConverter(){
-        return new SimpleMessageConverter();
-    }
+
+//    @Bean
+//    public SimpleMessageConverter messageConverter(){
+//        return new SimpleMessageConverter();
+//    }
 
     /*
 //    @Bean
