@@ -34,8 +34,8 @@ public class MessageConsumer {
 
 
     @JmsListener(destination = JmsConfig.BPS_NOTIFICATION)
-    public  void receiveJsonMessage(NotificationDTO notificationDTO){
-        logger.info(notificationDTO.getEmail());
+    public  void receiveMessageForEmailService(NotificationDTO notificationDTO){
+        System.out.println("inside consumer 1: "+notificationDTO);
 
         String subject = "Payment";
         String content = this.simpleEmailNotificationAdapterImpl.getContent(notificationDTO.getName());
@@ -48,6 +48,21 @@ public class MessageConsumer {
             throw new RuntimeException(e);
         }
 
+    }
+
+//    @JmsListener(destination = JmsConfig.BPS_NOTIFICATION)
+    public void receiveMessageForMobileService(NotificationDTO notificationDTO){
+        System.out.println("inside consumer 2: "+notificationDTO);
+    }
+
+//    @JmsListener(destination = JmsConfig.BPS_NOTIFICATION)
+    public void receiveMessageForMobileService1(NotificationDTO notificationDTO){
+        System.out.println("inside consumer 3: "+notificationDTO);
+    }
+
+//    @JmsListener(destination = JmsConfig.BPS_NOTIFICATION)
+    public void receiveMessageForMobileService2(NotificationDTO notificationDTO){
+        System.out.println("inside consumer 4: "+notificationDTO);
     }
 
 //    @JmsListener(destination = "DLQ")
