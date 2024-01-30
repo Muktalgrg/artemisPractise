@@ -27,8 +27,6 @@ public class BpsJmsTemplate extends JmsTemplate {
         convertAndSend(destinationName, message);
     }
 
-    public void convertAndSendBusinessUser(String destinationName, BusinessUserDTO businessUser){
-        convertAndSend(destinationName, businessUser);
-    }
+
 
 }

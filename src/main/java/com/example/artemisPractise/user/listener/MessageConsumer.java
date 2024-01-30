@@ -23,46 +23,18 @@ import java.util.Objects;
 public class MessageConsumer {
 
     private final static Logger logger = LoggerFactory.getLogger(MessageConsumer.class);
-    private final BpsJmsTemplate bpsJmsTemplate;
 
     private final SimpleEmailNotificationAdapterImpl simpleEmailNotificationAdapterImpl;
     private int count = 0;
 
-    public MessageConsumer(BpsJmsTemplate bpsJmsTemplate, SimpleEmailNotificationAdapterImpl simpleEmailNotificationAdapterImpl) {
-        this.bpsJmsTemplate = bpsJmsTemplate;
+    public MessageConsumer(SimpleEmailNotificationAdapterImpl simpleEmailNotificationAdapterImpl) {
         this.simpleEmailNotificationAdapterImpl = simpleEmailNotificationAdapterImpl;
     }
 
 
 
-//    @JmsListener(destination = JmsConfig.BPS_NOTIFICATION, containerFactory = "jmsListenerContainerFactory")
-    public  void receiveJsonMessage(Message receivedMessage){
-        System.out.println();
-        System.out.println(receivedMessage);
-        System.out.println(receivedMessage instanceof BusinessUserDTO);
-        System.out.println(receivedMessage instanceof NotificationDTO);
-
-        System.out.println((Object)receivedMessage instanceof BusinessUserDTO);
-        System.out.println((Object)receivedMessage instanceof NotificationDTO);
-
-
-
-
-//        String typeProperty = (String) object.getProperties().get("_type");
-//
-//
-////        bpsJmsTemplate.receiveAnd
-//        if(object instanceof NotificationDTO){
-//            System.out.println("notification dto: "+ ((NotificationDTO)object).getEmail());
-//        }
-////        if(object instanceof BusinessUserDTO){
-//            System.out.println("businessuser dto: "+ ((BusinessUserDTO)object).getEmail());
-//        }
-
-        // send email to respective logic!
-
-//        logger.warn(">>>> inside message consumer.\nMessage from the queue: "+notificationDTO);
-
+    @JmsListener(destination = JmsConfig.BPS_NOTIFICATION)
+    public  void receiveJsonMessage(NotificationDTO notificationDTO){
         logger.info("---------------------------------------");
         logger.info("---------------------------------------");
         count++;
@@ -70,11 +42,13 @@ public class MessageConsumer {
         logger.info("---------------------------------------");
         logger.info("---------------------------------------");
 
+        logger.info(notificationDTO.getEmail());
+
         String subject = "Payment";
-//        String content = this.simpleEmailNotificationAdapterImpl.getContent(notificationDTO.getName());
+        String content = this.simpleEmailNotificationAdapterImpl.getContent(notificationDTO.getName());
 
         try {
-//            this.simpleEmailNotificationAdapterImpl.sendEmail(notificationDTO.getEmail(), subject, content);
+            this.simpleEmailNotificationAdapterImpl.sendEmail(notificationDTO.getEmail(), subject, content);
             logger.info("Email has been sent to the user.");
         } catch (Exception e) {
             logger.error("Some exception related to email process.");
